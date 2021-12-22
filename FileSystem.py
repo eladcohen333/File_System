@@ -9,8 +9,11 @@ from FileSystem_targil2.SongFile import SongFile
 
 class FileSystem:
 
+    
     def __init__(self):
         self.system = {} # save the files in dict
+        
+#function for create files according kind(from json file)
 
     def addFile(self, file_json):
         for item in file_json:
@@ -37,7 +40,8 @@ class FileSystem:
                       self.system[item["file_name"]] = (miv_file)
             except: #if the file not proper
                   pass
-
+                
+# cheak the if the file proper according size and type
     def _cheak_kind(self, cheak_file, det_file, size_file): # cheak the if the file proper according size and type
         max_size = 40
         if cheak_file == 'pdf' and  size_file<max_size:
@@ -55,6 +59,7 @@ class FileSystem:
         return result
 
     # all this functions cheak that evry file dont have a missing data
+    
     def _cheak_pdf(self, cheak_file):
        if len(cheak_file) == 5:
            return "pdf"
@@ -89,7 +94,7 @@ class FileSystem:
         if file_name in self.system.keys():
             del self.system[file_name]
 
-
+#get files from same type
     def getFiles(self, type_file):
         list_type = []
         for name,i in zip(self.system.values(), self.system):
@@ -114,6 +119,7 @@ class FileSystem:
     def __str__(self): # function to cheak the len and files in the system
         return f"The size of the system its: {len(self.system)} \n now the system contain files :{self.system}"
 
+# connect files     
     def concatFiles(self, file_name1, file_name2):
         if (file_name1.split(".")[-1] == file_name2.split(".")[-1]) and (file_name1, file_name2 in self.system):
             concat_file1 = vars(self.system[file_name1])
